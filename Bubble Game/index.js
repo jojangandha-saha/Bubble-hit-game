@@ -4,7 +4,7 @@ EVENT BUBBLING- BUBBLE GAME
 //Math.floor(Math.random()*10) -> b/w 0-1, 
 let score = 0;
 let timer = 60;
-
+let highestScore = 0;
 var randHit;
 /* EVENT BUBBLING - where click -> that particular element will raise event
 if can't find listener , in event element's parent try to find listener, if there also 
@@ -38,9 +38,6 @@ function runTimer(){
         let gameGround =  document.querySelector(".panel-bottom")
         gameGround.innerHTML = "";
         gameGround.innerHTML = `<h1>GAME OVER</h1>`
-                            
-        
-
     }
  },1000)
 }
@@ -52,16 +49,30 @@ randHit = Math.floor(Math.random()*10);
 hit.textContent = randHit;
 }
 
-//runTimer();
+runTimer();
 //increaseScore(); - increase value when hit happens
 makeBubble();
+missVals();
 //event bubbling
 document.querySelector(".panel-bottom")
 .addEventListener('click', function(dets){
     if(dets.target.textContent === hit.textContent){
         increaseScore();
-        makeBubble();
+         makeBubble();
         getNewHit();
         
     }
 })
+let count = 0;
+function missVals(){
+    document.querySelector(".panel-bottom")
+    .addEventListener('click', function(dets){
+        if(dets.target.textContent != hit.textContent){
+            count++;
+            document.querySelector(".elem #miss").textContent = count;
+            makeBubble();
+            getNewHit();
+        }
+    })
+}
+
